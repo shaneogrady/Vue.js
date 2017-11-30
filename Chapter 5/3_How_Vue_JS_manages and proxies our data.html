@@ -1,0 +1,59 @@
+<script src="vue.js"></script>
+
+<div id="app1">
+  <h1>{{ title }}</h1>
+    <button v-on:click="show">Show Paragraph</button>
+    <button v-on:click="onUpdate">Change Vue 2</button>
+	<p v-if="showParagraph">This is not always visible</p>
+</div>
+
+<div id="app2">
+  <h1>{{ title }}</h1>
+  <button v-on:click="onChange">Change something in Vue 1</button>
+  <p v-if="showParagraph">This is not always visible</p>
+</div>
+
+<script>
+	var vm1 = new Vue ({
+		el: '#app1',
+		data: {
+			title: 'The VueJS instance',
+      showParagraph: false
+		},
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)')
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      },
+      onUpdate: function(){
+        vm2.title = 'Oh shiiiit'
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLowerCase();
+      }
+    }
+});
+
+setTimeout(function() {
+  vm1.title = 'Changed by Timer';
+  // vm1.show();
+}, 3000);
+
+var vm2 = new Vue ({
+  el: '#app2',
+  data: {
+    title: 'The second instance'
+  },
+  methods: {
+    onChange: function() {
+      vm1.title = 'Changed!'
+    }
+  }
+});
+
+</script>

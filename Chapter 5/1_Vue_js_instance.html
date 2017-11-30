@@ -1,0 +1,43 @@
+<script src="vue.js"></script>
+
+<div id="app1">
+  <h1>{{ title }}</h1>
+    <button v-on:click="show">Show Paragraph</button>
+	<p v-if="showParagraph">This is not always visible</p>
+</div>
+
+<div id="app2">
+  <h1>{{ title }}</h1>
+</div>
+
+<script>
+	new Vue ({
+		el: '#app1',
+		data: {
+			title: 'The VueJS instance',
+      showParagraph: false
+		},
+    methods: {
+      show: function() {
+        this.showParagraph = true;
+        this.updateTitle('The VueJS Instance (Updated)')
+      },
+      updateTitle: function(title) {
+        this.title = title;
+      }
+    },
+    computed: {
+      lowercaseTitle: function() {
+        return this.title.toLowerCase();
+      }
+    }
+});
+
+new Vue ({
+  el: '#app2',
+  data: {
+    title: 'The second instance'
+  }
+});
+
+</script>
